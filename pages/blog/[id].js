@@ -3,8 +3,6 @@ import { Input, Button, Card } from "antd";
 //import ReactQuill from "react-quill";
 import { useState } from "react";
 
-
-
 const Create = () => {
   const [text, setText] = useState("");
 
@@ -16,6 +14,7 @@ const Create = () => {
   return (
     <div className="create-page">
       <PureHeader />
+
       <main className="container">
         <div className="search-box">
           <Input
@@ -40,7 +39,12 @@ const Create = () => {
           }
         >
           {ReactQuill && (
-            <ReactQuill theme="bubble" value={text} onChange={(value) => setText(value)} />
+            <ReactQuill
+            style={{minHeight: 100}}
+              theme="bubble"
+              value={text}
+              onChange={(value) => setText(value)}
+            />
           )}
         </Card>
       </main>
