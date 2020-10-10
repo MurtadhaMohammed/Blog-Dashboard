@@ -10,6 +10,6 @@ export const login = (data, callback) => {
   })
     .then((resp) => resp.json())
     .then((result) => callback(null, result))
-    .catch((e) => callback(e, null));
+    .catch((err) => callback(err, null));
 };
 

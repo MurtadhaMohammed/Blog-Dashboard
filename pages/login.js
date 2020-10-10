@@ -3,23 +3,28 @@ import { Card, Input, Row, Col, Button, message } from "antd";
 import { login } from "../api";
 import { useState } from "react";
 
+import { useRouter } from 'next/router'
+
 const Login = () => {
+  const router = useRouter()
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
   const handlSubmit = () => {
-    setIsLoading(true)
+    setIsLoading(true);
     login({ email, password }, (err, result) => {
       if (err) throw err;
       if (!result.status) {
         Object.keys(result.errMsg).forEach((key) => {
-          message.error(result.errMsg[key])
+          message.error(result.errMsg[key]);
         });
-        setIsLoading(false)
+        setIsLoading(false);
       } else {
-        console.log(result);
-        setIsLoading(false)
+        localStorage.setItem("blog_token", result.token);
+        localStorage.setItem("blog_user", JSON.stringify(result.user));
+        router.replace('/');
+        setIsLoading(false);
       }
     });
   };
@@ -43,7 +48,12 @@ const Login = () => {
             />
           </Col>
           <Col span={24}>
-            <Button loading={isLoading} onClick={handlSubmit} type="primary" block>
+            <Button
+              loading={isLoading}
+              onClick={handlSubmit}
+              type="primary"
+              block
+            >
               Login
             </Button>
           </Col>
