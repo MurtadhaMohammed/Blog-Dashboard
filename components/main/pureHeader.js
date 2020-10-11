@@ -1,9 +1,11 @@
-import { Typography, Avatar, Popover } from "antd";
+import { Typography, Avatar, Popover, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
+import {useRouter} from 'next/router'
 
 const { Title, Text } = Typography;
 
 export const PureHeader = () =>{
+  const router = useRouter()
 
     return (
         <header>
@@ -17,9 +19,17 @@ export const PureHeader = () =>{
               <Popover
                 content={
                   <div>
-                    <Text>Change password</Text>
+                    <Button type="text">
+                    Change password
+                    </Button>
                     <br />
-                    <Text>Sign Out</Text>
+                    <Button type="link" onClick={()=>{
+                      localStorage.removeItem('blog_token')
+                      localStorage.removeItem('blog_user')
+                      router.replace('/login')
+                    }}>
+                      Sign Out
+                    </Button>
                   </div>
                 }
               >
